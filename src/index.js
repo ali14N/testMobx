@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from "react-dom"
-import { observer, computed } from 'mobx-react'
-import { observable } from "mobx"
+import { observer } from 'mobx-react'
+import { observable, computed } from "mobx"
 
 class TodoList {
   @observable todos = []
