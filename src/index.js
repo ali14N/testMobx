@@ -1,17 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React, { Component } from 'react';
+import ReactDOM from "react-dom"
+import { observer, computed } from 'mobx-react'
+import { observable } from "mobx"
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+class TodoList {
+  @observable todos = []
+  @computed get unfinishedTodoCount() {
+    return this.todos.filter(todo => !todo.finished).length
+  }
+}
+@observer
+class TodoListView extends Component {
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.props.todoList.todo.map(todo => (
+            <TodoView todo={todo} key={todo.id} />
+          ))}
+        </ul>
+                Tasks left: {this.props.todoList.unfinishedTodoCount}
+      </div>
+    )
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const TodoView = observer(({ todo }) => (
+  <li>
+    <input
+      type="checkbox"
+      checked={todo.finished} onClick={() => (todo.finished = !todo.finished)}
+    />
+    {todo.title}
+  </li>
+))
+
+const store = new TodoList()
+ReactDOM.render(<TodoListView todoList={store} />, document.getElementById("root"))
