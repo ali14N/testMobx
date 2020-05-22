@@ -1,0 +1,19 @@
+/* .App {
+  background-color: #ffeaa7;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: hsl(198, 1%, 29%);
+  text-align: center;
+  font-size: 120%;
+} */
+.App {
+  margin: 10% 40%;
+}
+.form {
+  margin-top: 5px;
+}
+button {
+  margin-left: 2px;
+}
