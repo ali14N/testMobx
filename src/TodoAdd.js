@@ -12,17 +12,21 @@ class TodoAdd extends Component {
             const inputText = e.target.value
             this.setState({ inputText })
         }
-
         const submitHandler = (e) => {
             e.preventDefault();
-            const newTodo = new Todo(this.state.inputText)
+            const { inputText } = this.state
+            if (inputText === '') {
+                alert("enter some task")
+                return;
+            }
+            const newTodo = new Todo(inputText)
             todos.push(newTodo) // pushing to todo state
             localStorage.setItem("todos", JSON.stringify(todos)) // pushed to localStorage
             // inputText reset
             this.setState({ inputText: "" })
         }
         return (
-            <div className="form">
+            <div>
                 <form onSubmit={submitHandler}>
                     <input type="text"
                         onChange={inputHandler}
